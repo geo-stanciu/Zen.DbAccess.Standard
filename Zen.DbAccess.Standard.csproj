@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <VersionPrefix>2.0.15.6</VersionPrefix>
-    <UserSecretsId>b9b0e847-7b4e-4206-9142-ae25cc595b97</UserSecretsId>
+    <UserSecretsId>e56f6ce3-5b1c-458a-9c68-fd03e7109ee8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
