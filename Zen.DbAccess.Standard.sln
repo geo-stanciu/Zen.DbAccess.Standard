@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.DbAccess.Standard", "Zen.DbAccess.Standard.csproj", "{AC4D3BC5-027F-4AB5-A867-3E9647124E58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.DbAccess.Oracle.Standard", "Zen.DbAccess.Oracle.Standard\Zen.DbAccess.Oracle.Standard.csproj", "{597C6839-F2B4-44D4-9D2F-66B3AE8305CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.DbAccess.SqlServer.Standard", "Zen.DbAccess.SqlServer.Standard\Zen.DbAccess.SqlServer.Standard.csproj", "{CA1BFAE5-5BBF-4A05-A9C8-F415B257E6C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.DbAccess.Postgresql.Standard", "Zen.DbAccess.Postgresql.Standard\Zen.DbAccess.Postgresql.Standard.csproj", "{14AAE696-B754-4CAA-9297-56B1D6151975}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zen.DbAccess.Sqlite.Standard", "Zen.DbAccess.Sqlite.Standard\Zen.DbAccess.Sqlite.Standard.csproj", "{E1298882-412B-4849-B821-997561D069ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen.DbAccess.MariaDb.Standard", "Zen.DbAccess.MariaDb.Standard\Zen.DbAccess.MariaDb.Standard.csproj", "{78569287-0992-4BF5-9B0D-6C749412E602}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC4D3BC5-027F-4AB5-A867-3E9647124E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4D3BC5-027F-4AB5-A867-3E9647124E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4D3BC5-027F-4AB5-A867-3E9647124E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4D3BC5-027F-4AB5-A867-3E9647124E58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{597C6839-F2B4-44D4-9D2F-66B3AE8305CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{597C6839-F2B4-44D4-9D2F-66B3AE8305CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{597C6839-F2B4-44D4-9D2F-66B3AE8305CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{597C6839-F2B4-44D4-9D2F-66B3AE8305CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1BFAE5-5BBF-4A05-A9C8-F415B257E6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1BFAE5-5BBF-4A05-A9C8-F415B257E6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1BFAE5-5BBF-4A05-A9C8-F415B257E6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1BFAE5-5BBF-4A05-A9C8-F415B257E6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AAE696-B754-4CAA-9297-56B1D6151975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AAE696-B754-4CAA-9297-56B1D6151975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AAE696-B754-4CAA-9297-56B1D6151975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AAE696-B754-4CAA-9297-56B1D6151975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1298882-412B-4849-B821-997561D069ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1298882-412B-4849-B821-997561D069ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1298882-412B-4849-B821-997561D069ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1298882-412B-4849-B821-997561D069ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78569287-0992-4BF5-9B0D-6C749412E602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78569287-0992-4BF5-9B0D-6C749412E602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78569287-0992-4BF5-9B0D-6C749412E602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78569287-0992-4BF5-9B0D-6C749412E602}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7ACA0F48-9762-49D2-AD5B-555D67CDC13C}
+	EndGlobalSection
+EndGlobal

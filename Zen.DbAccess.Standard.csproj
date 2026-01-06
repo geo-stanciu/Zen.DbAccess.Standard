@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <VersionPrefix>2.0.15.5</VersionPrefix>
+    <UserSecretsId>b9b0e847-7b4e-4206-9142-ae25cc595b97</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Examples\**" />
+    <Compile Remove="Test.Zen.DbAccess.Standard\**" />
+    <None Remove="Examples\**" />
+    <None Remove="Test.Zen.DbAccess.Standard\**" />
+    <Compile Remove="Tests.Zen.DbAccess.Standard\**" />
+    <None Remove="Tests.Zen.DbAccess.Standard\**" />
+    <Compile Remove="Zen.DbAccess.Oracle.Standard\**" />
+    <None Remove="Zen.DbAccess.Oracle.Standard\**" />
+    <Compile Remove="Zen.DbAccess.Postgresql.Standard\**" />
+    <None Remove="Zen.DbAccess.Postgresql.Standard\**" />
+    <Compile Remove="Zen.DbAccess.Sqlite.Standard\**" />
+    <None Remove="Zen.DbAccess.Sqlite.Standard\**" />
+    <Compile Remove="Zen.DbAccess.SqlServer.Standard\**" />
+    <EmbeddedResource Remove="Examples\**" />
+    <None Remove="Zen.DbAccess.SqlServer.Standard\**" />
+    <Compile Remove="Zen.DbAccess.MariaDb.Standard\**" />
+    <None Remove="Zen.DbAccess.MariaDb.Standard\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.1" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
