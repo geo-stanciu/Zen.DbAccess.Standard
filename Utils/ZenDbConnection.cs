@@ -4,11 +4,11 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Interfaces;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Interfaces;
 
-namespace Zen.DbAccess.Utils;
+namespace Zen.DbAccess.Standard.Utils;
 
 public class ZenDbConnection : IZenDbConnection
 {

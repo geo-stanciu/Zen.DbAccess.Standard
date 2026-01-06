@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Zen.DbAccess.Helpers;
+namespace Zen.DbAccess.Standard.Helpers;
 
 public static class CacheHelper
 {

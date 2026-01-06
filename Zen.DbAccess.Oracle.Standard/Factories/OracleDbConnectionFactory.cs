@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Factories;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Factories;
 
-namespace Zen.DbAccess.Oracle.Factories;
+namespace Zen.DbAccess.Oracle.Standard.Factories;
 
 public static class OracleDbConnectionFactory
 {

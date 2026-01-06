@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zen.DbAccess.Attributes;
+namespace Zen.DbAccess.Standard.Attributes;
 
 public class AuditIgnoreAttribute : Attribute
 {

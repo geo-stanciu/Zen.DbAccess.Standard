@@ -8,17 +8,16 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Attributes;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Extensions;
-using Zen.DbAccess.Interfaces;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.Postgresql.Extensions;
+using Zen.DbAccess.Postgresql.Standard.Extensions;
+using Zen.DbAccess.Standard.Attributes;
 using Zen.DbAccess.Standard.DatabaseSpeciffic;
-using Zen.DbAccess.Utils;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Interfaces;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.Utils;
 
-namespace Zen.DbAccess.Postgresql;
+namespace Zen.DbAccess.Postgresql.Standard;
 
 public class PostgresqlDatabaseSpeciffic : DbSpeciffic
 {

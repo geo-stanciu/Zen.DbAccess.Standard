@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.Enums;
 
-namespace Zen.DbAccess.Attributes;
+namespace Zen.DbAccess.Standard.Attributes;
 
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
 public class DbNameAttribute : Attribute

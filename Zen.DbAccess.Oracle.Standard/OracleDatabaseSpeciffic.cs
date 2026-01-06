@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Data.Common;
 using System.Text;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
-using Zen.DbAccess.Interfaces;
+using Zen.DbAccess.Standard.Interfaces;
 using System.Data;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Reflection;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.Enums;
 using System.Linq;
-using Zen.DbAccess.Extensions;
-using Zen.DbAccess.Oracle.Extensions;
-using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Oracle.Standard.Extensions;
 
-namespace Zen.DbAccess.Oracle;
+namespace Zen.DbAccess.Oracle.Standard;
 
 public class OracleDatabaseSpeciffic : DbSpeciffic
 {

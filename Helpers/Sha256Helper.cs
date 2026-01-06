@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Zen.DbAccess.Helpers;
+namespace Zen.DbAccess.Standard.Helpers;
 
 internal static class Sha256Helper
 {

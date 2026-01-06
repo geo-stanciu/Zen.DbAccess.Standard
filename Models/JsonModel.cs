@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Zen.DbAccess.Models;
+namespace Zen.DbAccess.Standard.Models;
 
 public class JsonModel
 {

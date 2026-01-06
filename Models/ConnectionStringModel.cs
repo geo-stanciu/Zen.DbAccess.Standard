@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.Enums;
 
-namespace Zen.DbAccess.Models;
+namespace Zen.DbAccess.Standard.Models;
 
 public class ConnectionStringModel
 {

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Helpers;
+using Zen.DbAccess.Standard.Helpers;
 
-namespace Zen.DbAccess.Extensions;
+namespace Zen.DbAccess.Standard.Extensions;
 
 public static class DataTableExtensions
 {

@@ -3,11 +3,11 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Factories;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Factories;
 
-namespace Zen.DbAccess.Postgresql.Factories;
+namespace Zen.DbAccess.Postgresql.Standard.Factories;
 
 public static class PostgresqlDbConnectionFactory
 {

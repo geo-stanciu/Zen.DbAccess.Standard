@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zen.DbAccess.Enums
+namespace Zen.DbAccess.Standard.Enums
 {
     public enum DbNamingConvention
     {

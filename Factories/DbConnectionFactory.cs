@@ -5,18 +5,16 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Extensions;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.Interfaces;
-using Zen.DbAccess.Utils;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.Interfaces;
+using Zen.DbAccess.Standard.Utils;
 using System.Diagnostics.Tracing;
 using System.Text;
-using Zen.DbAccess.Helpers;
 
-namespace Zen.DbAccess.Factories;
+namespace Zen.DbAccess.Standard.Factories;
 
 public class DbConnectionFactory : IDbConnectionFactory
 {

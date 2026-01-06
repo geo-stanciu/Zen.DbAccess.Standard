@@ -6,14 +6,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Attributes;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Helpers;
-using Zen.DbAccess.Interfaces;
-using Zen.DbAccess.Models;
+using Zen.DbAccess.Standard.Attributes;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Helpers;
+using Zen.DbAccess.Standard.Interfaces;
+using Zen.DbAccess.Standard.Models;
 
-namespace Zen.DbAccess.DatabaseSpeciffic;
+namespace Zen.DbAccess.Standard.DatabaseSpeciffic;
 
 public interface IDbSpeciffic
 {

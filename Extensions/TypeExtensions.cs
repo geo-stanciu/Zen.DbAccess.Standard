@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zen.DbAccess.Extensions;
+namespace Zen.DbAccess.Standard.Extensions;
 
 internal static class TypeExtensions
 {

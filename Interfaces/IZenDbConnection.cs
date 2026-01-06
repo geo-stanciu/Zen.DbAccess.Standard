@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Enums;
 
-namespace Zen.DbAccess.Interfaces;
+namespace Zen.DbAccess.Standard.Interfaces;
 
 public interface IZenDbConnection : IAsyncDisposable
 {

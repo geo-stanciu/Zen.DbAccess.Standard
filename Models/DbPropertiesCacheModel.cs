@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Zen.DbAccess.Models;
+namespace Zen.DbAccess.Standard.Models;
 
 internal class DbPropertiesCacheModel
 {

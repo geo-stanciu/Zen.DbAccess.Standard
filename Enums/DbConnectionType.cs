@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zen.DbAccess.Enums;
+namespace Zen.DbAccess.Standard.Enums;
 
 public enum DbConnectionType
 {

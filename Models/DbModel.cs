@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Attributes;
+using Zen.DbAccess.Standard.Attributes;
 
-namespace Zen.DbAccess.Models;
+namespace Zen.DbAccess.Standard.Models;
 
 public class DbModel : JsonModel
 {

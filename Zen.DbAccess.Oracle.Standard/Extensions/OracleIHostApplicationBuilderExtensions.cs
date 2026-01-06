@@ -9,12 +9,12 @@ using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.DatabaseSpeciffic;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Factories;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Factories;
 
-namespace Zen.DbAccess.Oracle.Extensions;
+namespace Zen.DbAccess.Oracle.Standard.Extensions;
 
 public static class OracleIHostApplicationBuilderExtensions
 {

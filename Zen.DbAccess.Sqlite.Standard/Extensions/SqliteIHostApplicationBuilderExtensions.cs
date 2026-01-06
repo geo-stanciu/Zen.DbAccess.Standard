@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.Factories;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.Factories;
+using Zen.DbAccess.Standard.Enums;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zen.DbAccess.Sqlite.Extensions;
+namespace Zen.DbAccess.Sqlite.Standard.Extensions;
 
 public static class SqliteIHostApplicationBuilderExtensions
 {

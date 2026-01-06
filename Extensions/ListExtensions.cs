@@ -5,14 +5,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Factories;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.Interfaces;
+using Zen.DbAccess.Standard.Factories;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.Interfaces;
 using System.Text.Json;
 using Newtonsoft.Json;
 
-namespace Zen.DbAccess.Extensions;
+namespace Zen.DbAccess.Standard.Extensions;
 
 public static class ListExtensions
 {

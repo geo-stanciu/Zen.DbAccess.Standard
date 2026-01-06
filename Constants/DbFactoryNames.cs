@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zen.DbAccess.Constants;
+namespace Zen.DbAccess.Standard.Constants;
 
 public static class DbFactoryNames
 {

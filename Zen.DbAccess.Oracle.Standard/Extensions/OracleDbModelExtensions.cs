@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Zen.DbAccess.Attributes;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Models;
+using Zen.DbAccess.Standard.Attributes;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Models;
 
-namespace Zen.DbAccess.Oracle.Extensions;
+namespace Zen.DbAccess.Oracle.Standard.Extensions;
 
 public static class OracleDbModelExtensions
 {

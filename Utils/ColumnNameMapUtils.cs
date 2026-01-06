@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Attributes;
+using Zen.DbAccess.Standard.Attributes;
 
-namespace Zen.DbAccess.Utils;
+namespace Zen.DbAccess.Standard.Utils;
 
 internal static class ColumnNameMapUtils
 {

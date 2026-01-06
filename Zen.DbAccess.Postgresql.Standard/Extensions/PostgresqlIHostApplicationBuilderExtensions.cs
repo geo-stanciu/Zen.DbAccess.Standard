@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Constants;
-using Zen.DbAccess.Factories;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.Factories;
 using Npgsql;
-using Zen.DbAccess.Enums;
+using Zen.DbAccess.Standard.Enums;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zen.DbAccess.Postgresql.Extensions;
+namespace Zen.DbAccess.Postgresql.Standard.Extensions;
 
 public static class PostgresqlIHostApplicationBuilderExtensions
 {
