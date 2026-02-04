@@ -11,6 +11,7 @@ using Zen.DbAccess.Standard.Enums;
 using Zen.DbAccess.Standard.Factories;
 using Zen.DbAccess.Standard.Extensions;
 using Zen.DbAccess.Standard.Interfaces;
+using Zen.DbAccess.Standard.Constants;
 
 namespace Zen.DbAccess.Standard.Utils;
 
@@ -47,6 +48,8 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -78,6 +81,7 @@ public static class DBUtils
     public static async Task<DataTable?> ExecuteProcedure2DataTableAsync(IZenDbConnection conn, string sql, params SqlParam[] parameters)
     {
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -124,6 +128,7 @@ public static class DBUtils
         DataSet? ds = null;
 
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -169,6 +174,7 @@ public static class DBUtils
         List<SqlParam> outParameters = new List<SqlParam>();
 
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -214,6 +220,7 @@ public static class DBUtils
     public static async Task<object?> ExecuteScalarAsync(IZenDbConnection conn, string sql, params SqlParam[] parameters)
     {
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -250,6 +257,7 @@ public static class DBUtils
         List<SqlParam> outParameters = new List<SqlParam>();
 
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -373,6 +381,8 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -428,6 +438,7 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -479,6 +490,8 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -529,6 +542,8 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -609,6 +624,8 @@ public static class DBUtils
 
         using (DbCommand cmd = conn.Connection.CreateCommand())
         {
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
 
@@ -653,6 +670,7 @@ public static class DBUtils
     public static async Task<List<T>> QueryAsync<T>(IZenDbConnection conn, string sql, string? queryCacheName, params SqlParam[] parameters)
     {
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -679,6 +697,7 @@ public static class DBUtils
         await Task.Run(() =>
         {
             using DbCommand cmd = conn.Connection.CreateCommand();
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
@@ -710,6 +729,7 @@ public static class DBUtils
         await Task.Run(() =>
         {
             using DbCommand cmd = conn.Connection.CreateCommand();
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
             if (conn.Transaction != null && cmd.Transaction == null)
                 cmd.Transaction = conn.Transaction;
@@ -741,6 +761,7 @@ public static class DBUtils
 
         using DataTable dt = new DataTable();
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -753,7 +774,9 @@ public static class DBUtils
 
         using DbCommandBuilder commandBuilder = CreateCommandBuilder(conn, dataAdapter);
         dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
+        dataAdapter.InsertCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
         dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
+        dataAdapter.UpdateCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && dataAdapter.InsertCommand.Transaction == null)
             dataAdapter.InsertCommand.Transaction = conn.Transaction;
@@ -804,6 +827,7 @@ public static class DBUtils
 
         using DataTable dt = new DataTable();
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = conn.Transaction;
@@ -816,7 +840,9 @@ public static class DBUtils
 
         using DbCommandBuilder commandBuilder = CreateCommandBuilder(conn, dataAdapter);
         dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
+        dataAdapter.InsertCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
         dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
+        dataAdapter.UpdateCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && dataAdapter.InsertCommand.Transaction == null)
             dataAdapter.InsertCommand.Transaction = conn.Transaction;
@@ -856,6 +882,7 @@ public static class DBUtils
 
         using DataTable dt = new DataTable();
         using DbCommand cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && cmd.Transaction == null)
             cmd.Transaction = cmd.Transaction;
@@ -868,7 +895,9 @@ public static class DBUtils
 
         using DbCommandBuilder commandBuilder = CreateCommandBuilder(conn, dataAdapter);
         dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
+        dataAdapter.InsertCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
         dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
+        dataAdapter.UpdateCommand.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
 
         if (conn.Transaction != null && dataAdapter.InsertCommand.Transaction == null)
             dataAdapter.InsertCommand.Transaction = conn.Transaction;
