@@ -7,10 +7,10 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Extensions;
-using Zen.DbAccess.Factories;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.Repositories;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Factories;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.Repositories;
 
 namespace DataAccess.Repositories;
 

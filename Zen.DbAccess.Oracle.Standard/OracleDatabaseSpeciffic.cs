@@ -1,19 +1,20 @@
-﻿using System;
-using System.Data.Common;
-using System.Text;
-using Zen.DbAccess.Standard.Models;
-using Zen.DbAccess.Standard.DatabaseSpeciffic;
+﻿using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using Oracle.ManagedDataAccess.Client;
-using Zen.DbAccess.Standard.Interfaces;
-using System.Data;
-using System.Threading.Tasks;
+using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Zen.DbAccess.Standard.Enums;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
-using Zen.DbAccess.Standard.Extensions;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using Zen.DbAccess.Oracle.Standard.Extensions;
+using Zen.DbAccess.Standard.Constants;
+using Zen.DbAccess.Standard.DatabaseSpeciffic;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Interfaces;
+using Zen.DbAccess.Standard.Models;
 
 namespace Zen.DbAccess.Oracle.Standard;
 
@@ -130,6 +131,19 @@ public class OracleDatabaseSpeciffic : DbSpeciffic
         clob.Write(byteContent, 0, byteContent.Length);
 
         return clob;
+    }
+
+    public override DbCommand CreateCommand(IZenDbConnection conn)
+    {
+        var cmd = conn.Connection.CreateCommand();
+        cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
+        ((OracleCommand)cmd).BindByName = true;
+
+        if (conn.Transaction != null)
+            cmd.Transaction = conn.Transaction;
+
+        return cmd;
     }
 
     public override DbParameter CreateDbParameter(DbCommand cmd, SqlParam prm)

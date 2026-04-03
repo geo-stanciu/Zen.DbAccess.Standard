@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Attributes;
-using Zen.DbAccess.Enums;
-using Zen.DbAccess.Models;
+using Zen.DbAccess.Standard.Attributes;
+using Zen.DbAccess.Standard.Enums;
+using Zen.DbAccess.Standard.Models;
 
 namespace DataAccess.Models;
 

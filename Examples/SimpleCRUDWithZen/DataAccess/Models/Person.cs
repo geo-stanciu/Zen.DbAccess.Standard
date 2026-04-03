@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.Attributes;
-using Zen.DbAccess.Models;
+using Zen.DbAccess.Standard.Attributes;
+using Zen.DbAccess.Standard.Models;
 
 namespace DataAccess.Models;
 
@@ -15,7 +15,7 @@ public class Person : ResponseModel
     public int Id { get; set; }
     public string? FirstName { get; set; }
     public string LastName { get; set; } = null!;
-    public DateOnly? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
     public PersonTypes? Type { get; set; }
     public byte[]? Image { get; set; }
     public DateTime? CreatedAt { get; set; }

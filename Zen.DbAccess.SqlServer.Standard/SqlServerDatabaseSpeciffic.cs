@@ -66,9 +66,9 @@ public class SqlServerDatabaseSpeciffic : DbSpeciffic
 
     public override void EnsureTempTable(string table)
     {
-        if (!table.StartsWith("##", StringComparison.OrdinalIgnoreCase))
+        if (!table.StartsWith("#", StringComparison.OrdinalIgnoreCase))
         {
-            throw new ArgumentException($"{table} must begin with ##.");
+            throw new ArgumentException($"{table} must begin with #.");
         }
     }
 

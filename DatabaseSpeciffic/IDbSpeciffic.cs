@@ -80,6 +80,8 @@ public interface IDbSpeciffic
 
     object GetValueAsClob(IZenDbConnection conn, object value);
 
+    DbCommand CreateCommand(IZenDbConnection conn);
+
     DbParameter CreateDbParameter(DbCommand cmd, SqlParam prm);
 
     DbDataAdapter CreateDataAdapter(IZenDbConnection conn);

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zen.DbAccess.MariaDb.Extensions;
-using Zen.DbAccess.Oracle.Extensions;
-using Zen.DbAccess.Postgresql.Extensions;
-using Zen.DbAccess.Sqlite.Extensions;
-using Zen.DbAccess.SqlServer.Extensions;
+using Zen.DbAccess.MariaDb.Standard.Extensions;
+using Zen.DbAccess.Oracle.Standard.Extensions;
+using Zen.DbAccess.Postgresql.Standard.Extensions;
+using Zen.DbAccess.Sqlite.Standard.Extensions;
+using Zen.DbAccess.SqlServer.Standard.Extensions;
 
 namespace DataAccess.Extensions;
 

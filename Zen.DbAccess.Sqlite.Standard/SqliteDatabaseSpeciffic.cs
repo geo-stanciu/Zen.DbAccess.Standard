@@ -42,17 +42,6 @@ public class SqliteDatabaseSpeciffic : DbSpeciffic
         return val!;
     }
 
-    public override DbParameter CreateDbParameter(DbCommand cmd, SqlParam prm)
-    {
-        DbParameter param = cmd.CreateParameter();
-
-        string baseParameterName = prm.name.StartsWith("@") ? prm.name.Substring(1) : prm.name;
-        param.ParameterName = baseParameterName;
-        cmd.CommandText = cmd.CommandText.Replace($"@{baseParameterName}", $"${baseParameterName}");
-
-        return param;
-    }
-
     public override void EnsureTempTable(string table)
     {
         if (!table.StartsWith("temp_", StringComparison.OrdinalIgnoreCase)

@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Zen.DbAccess.Extensions;
-using Zen.DbAccess.Models;
-using Zen.DbAccess.Repositories;
+using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Models;
+using Zen.DbAccess.Standard.Repositories;
 
 namespace DataAccess.Repositories;
 

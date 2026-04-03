@@ -258,6 +258,17 @@ namespace Zen.DbAccess.Standard.DatabaseSpeciffic
             return value ?? DBNull.Value;
         }
 
+        public virtual DbCommand CreateCommand(IZenDbConnection conn)
+        {
+            var cmd = conn.Connection.CreateCommand();
+            cmd.CommandTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
+            if (conn.Transaction != null)
+                cmd.Transaction = conn.Transaction;
+
+            return cmd;
+        }
+
         public virtual DbParameter CreateDbParameter(DbCommand cmd, SqlParam prm)
         {
             DbParameter param = cmd.CreateParameter();
