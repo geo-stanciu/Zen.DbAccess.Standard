@@ -8,10 +8,13 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using Zen.DbAccess.MariaDb.Standard.Constants;
 using Zen.DbAccess.Standard.Attributes;
+using Zen.DbAccess.Standard.Constants;
 using Zen.DbAccess.Standard.DatabaseSpeciffic;
 using Zen.DbAccess.Standard.Enums;
 using Zen.DbAccess.Standard.Extensions;
+using Zen.DbAccess.Standard.Helpers;
 using Zen.DbAccess.Standard.Interfaces;
 using Zen.DbAccess.Standard.Models;
 
@@ -80,153 +83,231 @@ public class MariaDbDatabaseSpeciffic : DbSpeciffic
         return (sql, Array.Empty<SqlParam>());
     }
 
-    public override Tuple<string, SqlParam[]> PrepareBulkInsertBatchWithSequence<T>(
-       List<T> list,
-       IZenDbConnection conn,
-       string table,
-       bool insertPrimaryKeyColumn,
-       string sequence2UseForPrimaryKey)
+    public async Task BulkInsertAsync<T>(
+        List<T> list,
+        IZenDbConnection conn,
+        string table,
+        bool insertPrimaryKeyColumn = false) where T : DbModel
     {
-        int k = -1;
-        bool firstRow = true;
-        StringBuilder sbInsert = new StringBuilder();
-        List<SqlParam> insertParams = new List<SqlParam>();
-        sbInsert.AppendLine($"insert into {table} ( ");
+        T? firstModel = list.FirstOrDefault();
 
-        T firstModel = list.First();
-        firstModel.ResetDbModel();
+        if (firstModel == null)
+            throw new NullReferenceException(nameof(firstModel));
+
         firstModel.RefreshDbColumnsAndModelProperties(conn, table);
 
-        List<PropertyInfo> propertiesToInsert = firstModel.GetPropertiesToInsert(conn, insertPrimaryKeyColumn, table);
+        var propertiesToInsert = firstModel.GetPropertiesToInsert(conn, insertPrimaryKeyColumn, table);
 
-        for (int i = 0; i < list.Count; i++)
+        if (await DbHasBulkInsertEnabledAsync(conn).ConfigureAwait(false))
         {
-            T model = list[i];
+            await UseBulkInsertAsync(list, conn, table, firstModel, propertiesToInsert).ConfigureAwait(false);
 
-            k++;
-            bool firstParam = true;
-            StringBuilder sbInsertValues = new StringBuilder();
+            return;
+        }
 
-            foreach (PropertyInfo propertyInfo in propertiesToInsert)
+        await RunInsertBatchAsync(list, conn, table, firstModel, propertiesToInsert).ConfigureAwait(false);
+    }
+
+    private async Task RunInsertBatchAsync<T>(
+        List<T> list,
+        IZenDbConnection conn,
+        string table,
+        T firstModel,
+        List<PropertyInfo> propertiesToInsert) where T : DbModel
+    {
+        var sqlParamNames = new Dictionary<string, string>();
+
+        var sbSql = new StringBuilder();
+
+        sbSql.Append($"INSERT INTO {table} (");
+
+        bool isFirst = true;
+
+        foreach (var property in propertiesToInsert)
+        {
+            string? dbCol = firstModel.GetMappedProperty(property.Name);
+
+            if (isFirst)
             {
-                if (firstParam)
+                isFirst = false;
+            }
+            else
+            {
+                sbSql.Append(", ");
+            }
+
+            sbSql.Append(dbCol);
+
+            var prmName = $"@p_{property.Name}";
+
+            sqlParamNames[property.Name] = prmName;
+        }
+
+        sbSql.Append(") VALUES ");
+
+        int offset = 0;
+        int dbMaxBatchSize = (int)Math.Floor((decimal)MariaDbConstants.MaxParametersPerQuery / propertiesToInsert.Count);
+
+        if (dbMaxBatchSize == 0)
+        {
+            throw new InvalidOperationException("The number of properties to insert exceeds the maximum allowed parameters per query.");
+        }
+
+        int batchSize = Math.Min(1024, dbMaxBatchSize);
+
+        while (offset < list.Count)
+        {
+            var sbValues = new StringBuilder();
+
+            var items = list.Skip(offset).Take(batchSize).ToList();
+            offset += items.Count;
+
+            var sqlParams = new SqlParam[items.Count * propertiesToInsert.Count];
+
+            int k = 0;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (i > 0)
                 {
-                    firstParam = false;
+                    sbValues.Append(", ");
                 }
-                else
-                {
-                    if (firstRow)
-                        sbInsert.Append(", ");
 
-                    sbInsertValues.Append(", ");
+                sbValues.Append("(");
+
+                var item = items[i];
+
+                isFirst = true;
+
+                foreach (var property in propertiesToInsert)
+                {
+                    string prmName = $"{sqlParamNames[property.Name]}_{i}";
+
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else
+                    {
+                        sbValues.Append(", ");
+                    }
+
+                    sbValues.Append(prmName);
+
+                    var val = property.GetValue(item);
+
+                    sqlParams[k++] = new SqlParam(prmName, val);
                 }
 
-                string? dbCol = firstModel!.GetMappedProperty(propertyInfo.Name);
+                sbValues.Append(")");
+            }
 
-                if (!insertPrimaryKeyColumn
-                    && !string.IsNullOrEmpty(dbCol)
-                    && firstModel!.IsPartOfThePrimaryKey(dbCol!))
+            string sql = $"{sbSql} {sbValues}";
+
+            _ = await sql.ExecuteNonQueryAsync(conn, sqlParams).ConfigureAwait(false);
+        }
+    }
+
+    private async Task UseBulkInsertAsync<T>(
+        List<T> list,
+        IZenDbConnection conn,
+        string table,
+        T firstModel,
+        List<PropertyInfo> propertiesToInsert) where T : DbModel
+    {
+        using DataTable dt = new DataTable();
+
+        MySqlBulkCopy bulkCopy = new MySqlBulkCopy((MySqlConnection)conn.Connection, (MySqlTransaction?)conn.Transaction);
+
+        bulkCopy.DestinationTableName = table;
+
+        bulkCopy.BulkCopyTimeout = DbAccessConstants.DefaultCommandTimeoutSeconds;
+
+        int k = 0;
+
+        foreach (var property in propertiesToInsert)
+        {
+            string? dbColName = firstModel.GetMappedProperty(property.Name);
+
+            Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+            if (t.IsEnum || t.IsSubclassOf(typeof(Enum)))
+            {
+                dt.Columns.Add(dbColName, typeof(int));
+            }
+            else if (t == typeof(bool))
+            {
+                dt.Columns.Add(dbColName, typeof(int));
+            }
+            else
+            {
+                dt.Columns.Add(dbColName, t);
+            }
+
+            bulkCopy.ColumnMappings.Add(new MySqlBulkCopyColumnMapping(k++, dbColName!));
+        }
+
+        foreach (var item in list)
+        {
+            k = 0;
+
+            var values = new object[propertiesToInsert.Count];
+
+            foreach (var property in propertiesToInsert)
+            {
+                var val = property.GetValue(item);
+
+                if (val == null)
                 {
-                    if (firstRow)
-                        sbInsert.Append($" {dbCol} ");
-
-                    sbInsertValues.Append($" default ");
-
+                    values[k++] = DBNull.Value;
                     continue;
                 }
 
-                if (firstRow)
-                    sbInsert.Append($" {dbCol} ");
+                Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
-                sbInsertValues.Append($" @p_{propertyInfo.Name}_{k} ");
-
-                SqlParam prm = new SqlParam($"@p_{propertyInfo.Name}_{k}", propertyInfo.GetValue(model));
-
-                insertParams.Add(prm);
-            }
-
-            if (firstRow)
-            {
-                firstRow = false;
-                sbInsert
-                    .AppendLine(") values ")
-                    .Append(" (")
-                    .Append(sbInsertValues).AppendLine(")");
-            }
-            else
-            {
-                sbInsert.Append(", (").Append(sbInsertValues).AppendLine(")");
-            }
-        }
-
-        return new Tuple<string, SqlParam[]>(sbInsert.ToString(), insertParams.ToArray());
-    }
-
-    public override Tuple<string, SqlParam[]> PrepareBulkInsertBatch<T>(
-        List<T> list,
-        IZenDbConnection conn,
-        string table)
-    {
-        int k = -1;
-        bool firstRow = true;
-        StringBuilder sbInsert = new StringBuilder();
-        List<SqlParam> insertParams = new List<SqlParam>();
-        sbInsert.AppendLine($"insert into {table} ( ");
-
-        T firstModel = list.First();
-        firstModel.ResetDbModel();
-        firstModel.RefreshDbColumnsAndModelProperties(conn, table);
-
-        List<PropertyInfo> propertiesToInsert = firstModel.GetPropertiesToInsert(conn, insertPrimaryKeyColumn: false, table: table);
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            T model = list[i];
-
-            k++;
-            bool firstParam = true;
-            StringBuilder sbInsertValues = new StringBuilder();
-
-            foreach (PropertyInfo propertyInfo in propertiesToInsert)
-            {
-                if (firstParam)
+                if (t.IsEnum || t.IsSubclassOf(typeof(Enum)))
                 {
-                    firstParam = false;
+                    values[k++] = (int)val;
+                }
+                else if (t == typeof(bool))
+                {
+                    values[k++] = (bool)val ? 1 : 0;
                 }
                 else
                 {
-                    if (firstRow)
-                        sbInsert.Append(", ");
-
-                    sbInsertValues.Append(", ");
+                    values[k++] = val;
                 }
-
-                string? dbCol = firstModel!.GetMappedProperty(propertyInfo.Name);
-
-                if (firstRow)
-                    sbInsert.Append($" {dbCol} ");
-
-                sbInsertValues.Append($" @p_{propertyInfo.Name}_{k} ");
-
-                SqlParam prm = new SqlParam($"@p_{propertyInfo.Name}_{k}", propertyInfo.GetValue(model));
-
-                insertParams.Add(prm);
             }
 
-            if (firstRow)
-            {
-                firstRow = false;
-                sbInsert
-                    .AppendLine(") values ")
-                    .Append(" (")
-                    .Append(sbInsertValues).AppendLine(")");
-            }
-            else
-            {
-                sbInsert.Append(", (").Append(sbInsertValues).AppendLine(")");
-            }
+            dt.Rows.Add(values);
         }
 
-        return new Tuple<string, SqlParam[]>(sbInsert.ToString(), insertParams.ToArray());
+        var result = await bulkCopy.WriteToServerAsync(dt).ConfigureAwait(false);
+    }
+
+    private async Task<bool> DbHasBulkInsertEnabledAsync(IZenDbConnection conn)
+    {
+        string cachekey = $"{conn.DbType}_HasBulkInsertEnabled";
+
+        var cachedProps = await CacheHelper.GetOrAdd(cachekey, async () =>
+        {
+            string sql = "SELECT @@GLOBAL.local_infile;";
+
+            var bulkInsertEnabled = Convert.ToInt32(await sql.ExecuteScalarAsync(conn).ConfigureAwait(false)) == 1;
+
+            if (bulkInsertEnabled)
+            {
+                var builder = new MySqlConnectionStringBuilder(conn.Connection.ConnectionString);
+
+                bulkInsertEnabled = builder.AllowLoadLocalInfile;
+            }
+
+            return new DbPropertiesCacheModel
+            {
+                HasBulkInsertEnabled = bulkInsertEnabled,
+            };
+        }).ConfigureAwait(false);
+
+        return cachedProps.HasBulkInsertEnabled;
     }
 }

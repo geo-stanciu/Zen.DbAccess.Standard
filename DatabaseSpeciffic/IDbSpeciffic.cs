@@ -86,8 +86,6 @@ public interface IDbSpeciffic
 
     DbDataAdapter CreateDataAdapter(IZenDbConnection conn);
 
-    bool UsePrimaryKeyPropertyForInsert();
-
     Task InsertAsync(DbModel model, DbCommand cmd, bool insertPrimaryKeyColumn, DbModelSaveType saveType);
 
     void EnsureTempTable(string table);
@@ -111,17 +109,11 @@ public interface IDbSpeciffic
 
     (string, IEnumerable<SqlParam>) GetInsertedIdQuery(string table, DbModel model, string firstPropertyName);
 
-    Tuple<string, SqlParam[]> PrepareBulkInsertBatchWithSequence<T>(
-       List<T> list,
-       IZenDbConnection conn,
-       string table,
-       bool insertPrimaryKeyColumn,
-       string sequence2UseForPrimaryKey) where T : DbModel;
+    object GetValueForPreparedParameter(DbModel dbModel, PropertyInfo propertyInfo);
 
-    Tuple<string, SqlParam[]> PrepareBulkInsertBatch<T>(
+    Task BulkInsertAsync<T>(
         List<T> list,
         IZenDbConnection conn,
-        string table) where T : DbModel;
-
-    object GetValueForPreparedParameter(DbModel dbModel, PropertyInfo propertyInfo);
+        string table,
+        bool insertPrimaryKeyColumn = false) where T : DbModel;
 }

@@ -19,7 +19,7 @@ public static class DBUtils
 {
     public static async Task<DateTime> GetServerDateTime(IDbConnectionFactory dbConnectionFactory)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return GetServerDateTime(conn);
     }
 
@@ -38,8 +38,8 @@ public static class DBUtils
 
     public static async Task<List<SqlParam>> ExecuteProcedureAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await ExecuteProcedureAsync(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await ExecuteProcedureAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<SqlParam>> ExecuteProcedureAsync(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -52,7 +52,7 @@ public static class DBUtils
 
             AddParameters(conn, cmd, parameters);
 
-            await cmd.ExecuteNonQueryAsync();
+            await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
 
             foreach (DbParameter param in cmd.Parameters)
             {
@@ -84,7 +84,7 @@ public static class DBUtils
         using DbDataAdapter da = conn.DatabaseSpeciffic.CreateDataAdapter(conn);
         da.SelectCommand = cmd;
 
-        DataSet ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da);
+        DataSet ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da).ConfigureAwait(false);
 
         DisposeLobParameters(conn, da.SelectCommand, parameters);
 
@@ -93,7 +93,7 @@ public static class DBUtils
 
     public static async Task<DataTable?> ExecuteProcedure2DataTableAsync(IZenDbConnection conn, DbCommand cmd)
     {
-        DataSet? ds = await ExecuteProcedure2DataSetAsync(conn, cmd);
+        DataSet? ds = await ExecuteProcedure2DataSetAsync(conn, cmd).ConfigureAwait(false);
 
         if (ds == null)
             return null;
@@ -108,8 +108,8 @@ public static class DBUtils
 
     public static async Task<DataSet?> ExecuteProcedure2DataSetAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        var result = await ExecuteProcedure2DataSetAsync(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        var result = await ExecuteProcedure2DataSetAsync(conn, sql, parameters).ConfigureAwait(false);
 
         return result;
     }
@@ -127,7 +127,7 @@ public static class DBUtils
         using DbDataAdapter da = conn.DatabaseSpeciffic.CreateDataAdapter(conn);
         da.SelectCommand = cmd;
 
-        ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da);
+        ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da).ConfigureAwait(false);
 
         DisposeLobParameters(conn, da.SelectCommand, parameters);
 
@@ -146,7 +146,7 @@ public static class DBUtils
         using DbDataAdapter da = conn.DatabaseSpeciffic.CreateDataAdapter(conn);
         da.SelectCommand = cmd;
 
-        ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da);
+        ds = await conn.DatabaseSpeciffic.ExecuteProcedure2DataSetAsync(conn, da).ConfigureAwait(false);
 
         return ds;
     }
@@ -166,7 +166,7 @@ public static class DBUtils
 
         AddParameters(conn, cmd, parameters.Where(x => x.paramDirection != ParameterDirection.ReturnValue).ToArray());
 
-        using DataTable dt = await ExecuteProcedure2DataTableAsync(conn, cmd) ?? new DataTable();
+        using DataTable dt = (await ExecuteProcedure2DataTableAsync(conn, cmd).ConfigureAwait(false)) ?? new DataTable();
 
         foreach (DbParameter param in cmd.Parameters)
         {
@@ -196,8 +196,8 @@ public static class DBUtils
 
     public static async Task<object?> ExecuteScalarAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await ExecuteScalarAsync(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await ExecuteScalarAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<object?> ExecuteScalarAsync(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -208,7 +208,7 @@ public static class DBUtils
 
         AddParameters(conn, cmd, parameters);
 
-        var result = await cmd.ExecuteScalarAsync();
+        var result = await cmd.ExecuteScalarAsync().ConfigureAwait(false);
 
         DisposeLobParameters(conn, cmd, parameters);
 
@@ -227,8 +227,8 @@ public static class DBUtils
 
     public static async Task<List<SqlParam>> ExecuteNonQueryAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await ExecuteNonQueryAsync(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await ExecuteNonQueryAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<SqlParam>> ExecuteNonQueryAsync(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -241,7 +241,7 @@ public static class DBUtils
 
         AddParameters(conn, cmd, parameters);
 
-        await cmd.ExecuteNonQueryAsync();
+        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
 
         foreach (DbParameter param in cmd.Parameters)
         {
@@ -270,13 +270,13 @@ public static class DBUtils
 
     public static async Task<T?> QueryRowAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryRowAsync<T>(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryRowAsync<T>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<T?> QueryRowAsync<T>(IZenDbConnection conn, string sql, params SqlParam[] parameters)
     {
-        List<T> results = await QueryAsync<T>(conn, sql, queryCacheName: null, parameters);
+        List<T> results = await QueryAsync<T>(conn, sql, queryCacheName: null, parameters).ConfigureAwait(false);
 
         if (results.Count == 0)
             throw new Exception("no data found");
@@ -326,20 +326,20 @@ public static class DBUtils
 
     public static async Task<(List<T>, List<T2>, List<T3>, List<T4>, List<T5>)> QueryProcedureAsync<T, T2, T3, T4, T5>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T, T2, T3, T4, T5>(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T, T2, T3, T4, T5>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>, List<T3>, List<T4>)> QueryProcedureAsync<T, T2, T3, T4>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T, T2, T3, T4>(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T, T2, T3, T4>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>, List<T3>)> QueryProcedureAsync<T, T2, T3>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T, T2, T3>(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T, T2, T3>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>, List<T3>, List<T4>, List<T5>)> QueryProcedureAsync<T, T2, T3, T4, T5>(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -361,9 +361,9 @@ public static class DBUtils
             AddParameters(conn, cmd, parameters);
 
             if (isCursorFetch)
-                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd);
+                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd).ConfigureAwait(false);
             else
-                (result, result2, result3, result4) = await cmd.QueryAsync<T, T2, T3, T4>(conn, queryCacheName: cmd.CommandText);
+                (result, result2, result3, result4) = await cmd.QueryAsync<T, T2, T3, T4>(conn, queryCacheName: cmd.CommandText).ConfigureAwait(false);
 
             DisposeLobParameters(conn, cmd, parameters);
         }
@@ -376,15 +376,15 @@ public static class DBUtils
             for (int i = 0; i < 5; i++)
             {
                 if (i == 0)
-                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 1)
-                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 2)
-                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 3)
-                    result4 = await conn.DatabaseSpeciffic.QueryCursorAsync<T4>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result4 = await conn.DatabaseSpeciffic.QueryCursorAsync<T4>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 4)
-                    result5 = await conn.DatabaseSpeciffic.QueryCursorAsync<T5>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result5 = await conn.DatabaseSpeciffic.QueryCursorAsync<T5>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
             }
         }
 
@@ -413,9 +413,9 @@ public static class DBUtils
             AddParameters(conn, cmd, parameters);
 
             if (isCursorFetch)
-                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd);
+                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd).ConfigureAwait(false);
             else
-                (result, result2, result3, result4) = await cmd.QueryAsync<T, T2, T3, T4>(conn, queryCacheName: cmd.CommandText);
+                (result, result2, result3, result4) = await cmd.QueryAsync<T, T2, T3, T4>(conn, queryCacheName: cmd.CommandText).ConfigureAwait(false);
 
             DisposeLobParameters(conn, cmd, parameters);
         }
@@ -428,13 +428,13 @@ public static class DBUtils
             for (int i = 0; i < 4; i++)
             {
                 if (i == 0)
-                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 1)
-                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 2)
-                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 3)
-                    result4 = await conn.DatabaseSpeciffic.QueryCursorAsync<T4>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result4 = await conn.DatabaseSpeciffic.QueryCursorAsync<T4>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
             }
         }
 
@@ -461,9 +461,9 @@ public static class DBUtils
             AddParameters(conn, cmd, parameters);
 
             if (isCursorFetch)
-                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd);
+                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd).ConfigureAwait(false);
             else
-                (result, result2, result3) = await cmd.QueryAsync<T, T2, T3>(conn, queryCacheName: cmd.CommandText);
+                (result, result2, result3) = await cmd.QueryAsync<T, T2, T3>(conn, queryCacheName: cmd.CommandText).ConfigureAwait(false);
 
             DisposeLobParameters(conn, cmd, parameters);
         }
@@ -476,11 +476,11 @@ public static class DBUtils
             for (int i = 0; i < 3; i++)
             {
                 if (i == 0)
-                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 1)
-                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 2)
-                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result3 = await conn.DatabaseSpeciffic.QueryCursorAsync<T3>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
             }
         }
 
@@ -489,8 +489,8 @@ public static class DBUtils
 
     public static async Task<(List<T>, List<T2>)> QueryProcedureAsync<T, T2>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T, T2>(conn, sql, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T, T2>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>)> QueryProcedureAsync<T, T2>(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -508,9 +508,9 @@ public static class DBUtils
             AddParameters(conn, cmd, parameters);
 
             if (isCursorFetch)
-                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd);
+                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd).ConfigureAwait(false);
             else
-                (result, result2) = await cmd.QueryAsync<T, T2>(conn, queryCacheName: cmd.CommandText);
+                (result, result2) = await cmd.QueryAsync<T, T2>(conn, queryCacheName: cmd.CommandText).ConfigureAwait(false);
 
             DisposeLobParameters(conn, cmd, parameters);
         }
@@ -523,9 +523,9 @@ public static class DBUtils
             for (int i = 0; i < 2; i++)
             {
                 if (i == 0)
-                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
                 else if (i == 1)
-                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]);
+                    result2 = await conn.DatabaseSpeciffic.QueryCursorAsync<T2>(conn, procedureName: $"{sql}{i}", cursors[i]).ConfigureAwait(false);
             }
         }
 
@@ -534,14 +534,14 @@ public static class DBUtils
 
     public static async Task<List<T>> QueryTableProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
 
         bool dbHasCursorFetch = conn.DatabaseSpeciffic.ShouldFetchProcedureAsCursorsAsync();
 
         if (!dbHasCursorFetch)
-            return await QueryProcedureAsync<T>(conn, sql, parameters);
+            return await QueryProcedureAsync<T>(conn, sql, parameters).ConfigureAwait(false);
         else
-            return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: true, parameters);
+            return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: true, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryTableProcedureAsync<T>(IZenDbConnection conn, string sql, params SqlParam[] parameters)
@@ -549,26 +549,26 @@ public static class DBUtils
         bool dbHasCursorFetch = conn.DatabaseSpeciffic.ShouldFetchProcedureAsCursorsAsync();
 
         if (!dbHasCursorFetch)
-            return await QueryProcedureAsync<T>(conn, sql, parameters);
+            return await QueryProcedureAsync<T>(conn, sql, parameters).ConfigureAwait(false);
         else
-            return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: true, parameters);
+            return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: true, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: false, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: false, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, bool isTableProcedure, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IZenDbConnection conn, string sql, params SqlParam[] parameters)
     {
-        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: false, parameters);
+        return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: false, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IZenDbConnection conn, string sql, bool isTableProcedure, params SqlParam[] parameters)
@@ -585,9 +585,9 @@ public static class DBUtils
             AddParameters(conn, cmd, parameters);
 
             if (isCursorFetch)
-                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd);
+                cursors = await conn.DatabaseSpeciffic.QueryCursorNamesAsync(conn, cmd).ConfigureAwait(false);
             else
-                result = await cmd.QueryAsync<T>(conn, queryCacheName: cmd.CommandText);
+                result = await cmd.QueryAsync<T>(conn, queryCacheName: cmd.CommandText).ConfigureAwait(false);
 
             DisposeLobParameters(conn, cmd, parameters);
         }
@@ -599,7 +599,7 @@ public static class DBUtils
             if (string.IsNullOrEmpty(cursor))
                 throw new Exception("No open cursor");
 
-            result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: sql, cursor!);
+            result = await conn.DatabaseSpeciffic.QueryCursorAsync<T>(conn, procedureName: sql, cursor!).ConfigureAwait(false);
         }
 
         return result ?? new List<T>();
@@ -607,13 +607,13 @@ public static class DBUtils
 
     public static async Task<List<T>> QueryAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
-        return await QueryAsync<T>(conn, sql, queryCacheName: null, parameters);
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        return await QueryAsync<T>(conn, sql, queryCacheName: null, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> FetchCursorAsync<T>(IZenDbConnection conn, string sql, string procedureName, params SqlParam[] parameters)
     {
-        var result = await sql.QueryAsync<T>(conn, queryCacheName: procedureName);
+        var result = await sql.QueryAsync<T>(conn, queryCacheName: procedureName).ConfigureAwait(false);
 
         return result ?? new List<T>();
     }
@@ -626,7 +626,7 @@ public static class DBUtils
 
         AddParameters(conn, cmd, parameters);
 
-        var result = await cmd.QueryAsync<T>(conn, queryCacheName);
+        var result = await cmd.QueryAsync<T>(conn, queryCacheName).ConfigureAwait(false);
 
         DisposeLobParameters(conn, cmd, parameters);
         return result;
@@ -655,7 +655,7 @@ public static class DBUtils
             dt = new DataTable();
             da.Fill(dt);
             DisposeLobParameters(conn, da.SelectCommand, parameters);
-        });
+        }).ConfigureAwait(false);
 
         return dt;
     }
@@ -683,14 +683,14 @@ public static class DBUtils
             ds = new DataSet();
             da.Fill(ds);
             DisposeLobParameters(conn, da.SelectCommand, parameters);
-        });
+        }).ConfigureAwait(false);
 
         return ds;
     }
 
     public static async Task UpdateTableAsync<T>(IDbConnectionFactory dbConnectionFactory, string table, T model)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         UpdateTable(conn, table, model);
     }
 
@@ -803,7 +803,7 @@ public static class DBUtils
 
     public static async Task UpdateTableAsync<T>(IDbConnectionFactory dbConnectionFactory, string table, List<T> models)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync();
+        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         UpdateTable(conn, table, models);
     }
 

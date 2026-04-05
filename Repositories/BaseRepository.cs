@@ -31,10 +31,9 @@ public abstract class BaseRepository
             table: table,
             insertPrimaryKeyColumn: false,
             bulkInsert: false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute: procedure2Execute,
             CreateTempTableCallBack: null,
-            models: new List<DbModel> { model })
+            models: new List<DbModel> { model }).ConfigureAwait(false)
         ).Single();
 
         return rez;
@@ -50,11 +49,10 @@ public abstract class BaseRepository
             table: table,
             insertPrimaryKeyColumn: false,
             bulkInsert: false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute: procedure2Execute,
             isTableProcedure: isTableProcedure,
             CreateTempTableCallBack: null,
-            models: new List<DbModel> { model })
+            models: new List<DbModel> { model }).ConfigureAwait(false)
         ).Single();
 
         return rez;
@@ -175,7 +173,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -198,7 +195,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -217,7 +213,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -236,7 +231,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -256,7 +250,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             isTableProcedure: isTableProcedure,
             CreateTempTableCallBack: null,
@@ -276,7 +269,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             isTableProcedure: false,
             CreateTempTableCallBack: null,
@@ -302,10 +294,9 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -326,10 +317,9 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -346,10 +336,9 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -366,10 +355,9 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -387,11 +375,10 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             isTableProcedure: isTableProcedure,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -408,11 +395,10 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             false,
-            sequence2UseForPrimaryKey: "",
             procedure2Execute,
             isTableProcedure: false,
             CreateTempTableCallBack,
-            parameters)
+            parameters).ConfigureAwait(false)
         );
     }
 
@@ -421,7 +407,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel
                                       where T2 : ResponseModel
@@ -435,7 +420,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -446,7 +430,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel
                                       where T2 : ResponseModel
@@ -459,7 +442,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -470,7 +452,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel where T3 : ResponseModel where TDBModel : DbModel
     {
@@ -479,7 +460,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -490,7 +470,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel where TDBModel : DbModel
     {
@@ -499,7 +478,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             CreateTempTableCallBack: null,
             parameters);
@@ -510,7 +488,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         bool isTableProcedure,
         params SqlParam[] parameters) where T : ResponseModel where TDBModel : DbModel
@@ -520,7 +497,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             isTableProcedure: isTableProcedure,
             CreateTempTableCallBack: null,
@@ -532,7 +508,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel where TDBModel : DbModel
     {
@@ -541,7 +516,6 @@ public abstract class BaseRepository
             models,
             insertPrimaryKeyColumn,
             bulkInsert,
-            sequence2UseForPrimaryKey,
             procedure2Execute,
             isTableProcedure: false,
             CreateTempTableCallBack: null,
@@ -553,7 +527,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
         params SqlParam[] parameters) where T : ResponseModel
@@ -566,19 +539,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -589,9 +562,8 @@ public abstract class BaseRepository
                         conn,
                         table!,
                         runAllInTheSameTransaction: false,
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false,
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -601,18 +573,18 @@ public abstract class BaseRepository
                         table!,
                         runAllInTheSameTransaction: false,
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T, T2, T3, T4, T5>(conn, procedure2Execute, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T, T2, T3, T4, T5>(conn, procedure2Execute, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -622,7 +594,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
         params SqlParam[] parameters) where T : ResponseModel
@@ -634,19 +605,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -657,9 +628,8 @@ public abstract class BaseRepository
                         conn,
                         table!,
                         runAllInTheSameTransaction: false,
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false,
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -669,18 +639,18 @@ public abstract class BaseRepository
                         table!,
                         runAllInTheSameTransaction: false,
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T, T2, T3, T4>(conn, procedure2Execute, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T, T2, T3, T4>(conn, procedure2Execute, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -690,7 +660,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel where T3 : ResponseModel where TDBModel : DbModel
@@ -698,19 +667,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -721,9 +690,8 @@ public abstract class BaseRepository
                         conn,
                         table!,
                         runAllInTheSameTransaction: false,
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false,
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -733,18 +701,18 @@ public abstract class BaseRepository
                         table!,
                         runAllInTheSameTransaction: false,
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T, T2, T3>(conn, procedure2Execute, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T, T2, T3>(conn, procedure2Execute, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -754,7 +722,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel where TDBModel : DbModel
@@ -762,19 +729,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -785,9 +752,8 @@ public abstract class BaseRepository
                         conn,
                         table!,
                         runAllInTheSameTransaction: false,
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false,
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -797,18 +763,18 @@ public abstract class BaseRepository
                         table!,
                         runAllInTheSameTransaction: false,
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T, T2>(conn, procedure2Execute, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T, T2>(conn, procedure2Execute, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -818,7 +784,6 @@ public abstract class BaseRepository
         List<TDBModel>? models,
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         bool isTableProcedure,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
@@ -827,19 +792,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
 
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -850,9 +815,8 @@ public abstract class BaseRepository
                         conn,
                         table!,
                         runAllInTheSameTransaction: false,
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false,
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -862,18 +826,18 @@ public abstract class BaseRepository
                         table!,
                         runAllInTheSameTransaction: false,
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -883,7 +847,6 @@ public abstract class BaseRepository
         List<TDBModel>? models, 
         bool? insertPrimaryKeyColumn,
         bool? bulkInsert,
-        string? sequence2UseForPrimaryKey,
         string procedure2Execute,
         Func<IZenDbConnection, Task>? CreateTempTableCallBack,
         params SqlParam[] parameters) where T : ResponseModel where TDBModel : DbModel
@@ -891,19 +854,19 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync();
-        await conn.BeginTransactionAsync();
+        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
         {
             if (CreateTempTableCallBack != null)
             {
-                await CreateTempTableCallBack(conn);
+                await CreateTempTableCallBack(conn).ConfigureAwait(false);
             }
             
             if (!string.IsNullOrEmpty(table))
             {
-                await ClearTempTableAsync(conn, table!);
+                await ClearTempTableAsync(conn, table!).ConfigureAwait(false);
             }
 
             if (models != null && !string.IsNullOrEmpty(table))
@@ -914,9 +877,8 @@ public abstract class BaseRepository
                         conn,
                         table!, 
                         runAllInTheSameTransaction: false, 
-                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false, 
-                        sequence2UseForPrimaryKey ?? ""
-                    );
+                        insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
+                    ).ConfigureAwait(false);
                 }
                 else
                 {
@@ -926,18 +888,18 @@ public abstract class BaseRepository
                         table!, 
                         runAllInTheSameTransaction: false, 
                         insertPrimaryKeyColumn: insertPrimaryKeyColumn ?? false
-                    );
+                    ).ConfigureAwait(false);
                 }
             }
 
-            var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure: false, parameters);
-            await conn.CommitAsync();
+            var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure: false, parameters).ConfigureAwait(false);
+            await conn.CommitAsync().ConfigureAwait(false);
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync();
+            await conn.RollbackAsync().ConfigureAwait(false);
             throw;
         }
     }
@@ -951,7 +913,7 @@ public abstract class BaseRepository
                                       where T4 : ResponseModel
                                       where T5 : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3, T4, T5>(conn, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3, T4, T5>(conn, parameters).ConfigureAwait(false);
 
         return result;
     }
@@ -964,7 +926,7 @@ public abstract class BaseRepository
                                       where T3 : ResponseModel
                                       where T4 : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3, T4>(conn, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3, T4>(conn, parameters).ConfigureAwait(false);
 
         return result;
     }
@@ -974,7 +936,7 @@ public abstract class BaseRepository
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel where T3 : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3>(conn, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T, T2, T3>(conn, parameters).ConfigureAwait(false);
 
         return result;
     }
@@ -984,7 +946,7 @@ public abstract class BaseRepository
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel where T2 : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T, T2>(conn, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T, T2>(conn, parameters).ConfigureAwait(false);
 
         return result;
     }
@@ -994,7 +956,7 @@ public abstract class BaseRepository
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure: true, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure: true, parameters).ConfigureAwait(false);
 
         if (result == null)
             throw new Exception("empty query response");
@@ -1010,7 +972,7 @@ public abstract class BaseRepository
         bool isTableProcedure,
         params SqlParam[] parameters) where T : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure, parameters).ConfigureAwait(false);
 
         if (result == null)
             throw new Exception("empty query response");
@@ -1025,7 +987,7 @@ public abstract class BaseRepository
         string procedure2Execute,
         params SqlParam[] parameters) where T : ResponseModel
     {
-        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure: false, parameters);
+        var result = await procedure2Execute.QueryProcedureAsync<T>(conn, isTableProcedure: false, parameters).ConfigureAwait(false);
 
         if (result == null)
             throw new Exception("empty query response");
@@ -1040,6 +1002,6 @@ public abstract class BaseRepository
         conn.DatabaseSpeciffic.EnsureTempTable(table);
 
         string sql = $"delete from {table}";
-        await sql.ExecuteNonQueryAsync(conn);
+        await sql.ExecuteNonQueryAsync(conn).ConfigureAwait(false);
     }
 }

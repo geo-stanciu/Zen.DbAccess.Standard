@@ -110,23 +110,23 @@ public class ZenDbConnection : IZenDbConnection
     public async ValueTask DisposeAsync()
     {
         if (_tx != null)
-            await RollbackAsync();
+            await RollbackAsync().ConfigureAwait(false);
 
-        await CloseAsync();
+        await CloseAsync().ConfigureAwait(false);
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
         if (_tx != null)
-            await RollbackAsync();
+            await RollbackAsync().ConfigureAwait(false);
 
-        await CloseAsync();
+        await CloseAsync().ConfigureAwait(false);
     }
 
     public async Task CloseAsync()
     {
         if (_tx != null)
-            await RollbackAsync();
+            await RollbackAsync().ConfigureAwait(false);
 
         if (_conn != null && _conn.State != ConnectionState.Closed)
             _conn.Close();

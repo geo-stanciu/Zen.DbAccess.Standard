@@ -187,7 +187,7 @@ public class DbConnectionFactory : IDbConnectionFactory
 
         if (_dbType == DbConnectionType.Oracle)
         {
-            await conn.OpenAsync();
+            await conn.OpenAsync().ConfigureAwait(false);
 
             var sbSql = new StringBuilder();
 
@@ -205,7 +205,7 @@ public class DbConnectionFactory : IDbConnectionFactory
 
             string sql = sbSql.ToString();
 
-            await sql.ExecuteNonQueryAsync(connection);
+            await sql.ExecuteNonQueryAsync(connection).ConfigureAwait(false);
         }
         else if (_dbType == DbConnectionType.Postgresql)
         {
@@ -214,31 +214,31 @@ public class DbConnectionFactory : IDbConnectionFactory
                 _connStr += $"Timezone={_timeZone};";
             }
 
-            await conn.OpenAsync();
+            await conn.OpenAsync().ConfigureAwait(false);
 
             if (_commitNoWait!.Value)
             {
                 string sql = "SET synchronous_commit = 'off'";
-                await sql.ExecuteNonQueryAsync(connection);
+                await sql.ExecuteNonQueryAsync(connection).ConfigureAwait(false);
             }
         }
         else if (_dbType == DbConnectionType.MariaDb)
         {
-            await conn.OpenAsync();
+            await conn.OpenAsync().ConfigureAwait(false);
 
             string sql = "SET SESSION sql_mode = 'ORACLE' ";
-            await sql.ExecuteNonQueryAsync(connection);
+            await sql.ExecuteNonQueryAsync(connection).ConfigureAwait(false);
         }
         else if (_dbType == DbConnectionType.Sqlite)
         {
-            await conn.OpenAsync();
+            await conn.OpenAsync().ConfigureAwait(false);
 
             string sql = "PRAGMA journal_mode=WAL; PRAGMA busy_timeout = 5000; PRAGMA foreign_keys = ON; PRAGMA synchronous = NORMAL; ";
-            await sql.ExecuteNonQueryAsync(connection);
+            await sql.ExecuteNonQueryAsync(connection).ConfigureAwait(false);
         }
 
         if (conn.State != ConnectionState.Open)
-            await conn.OpenAsync();
+            await conn.OpenAsync().ConfigureAwait(false);
 
         return connection;
     }

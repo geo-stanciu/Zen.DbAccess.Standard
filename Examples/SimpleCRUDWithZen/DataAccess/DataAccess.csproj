@@ -13,12 +13,12 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.5" />
     <PackageReference Include="MySqlConnector" Version="2.5.0" />
-    <PackageReference Include="Zen.DbAccess.MariaDb.Standard" Version="2.0.15.11" />
-    <PackageReference Include="Zen.DbAccess.Oracle.Standard" Version="2.0.15.11" />
-    <PackageReference Include="Zen.DbAccess.Postgresql.Standard" Version="2.0.15.11" />
-    <PackageReference Include="Zen.DbAccess.Sqlite.Standard" Version="2.0.15.11" />
-    <PackageReference Include="Zen.DbAccess.SqlServer.Standard" Version="2.0.15.11" />
-    <PackageReference Include="Zen.DbAccess.Standard" Version="2.0.15.11" />
+    <PackageReference Include="Zen.DbAccess.MariaDb.Standard" Version="2.0.16.0" />
+    <PackageReference Include="Zen.DbAccess.Oracle.Standard" Version="2.0.16.0" />
+    <PackageReference Include="Zen.DbAccess.Postgresql.Standard" Version="2.0.16.0" />
+    <PackageReference Include="Zen.DbAccess.Sqlite.Standard" Version="2.0.16.0" />
+    <PackageReference Include="Zen.DbAccess.SqlServer.Standard" Version="2.0.16.0" />
+    <PackageReference Include="Zen.DbAccess.Standard" Version="2.0.16.0" />
   </ItemGroup>
 
 </Project>

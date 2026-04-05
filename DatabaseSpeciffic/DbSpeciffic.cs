@@ -281,16 +281,11 @@ namespace Zen.DbAccess.Standard.DatabaseSpeciffic
             throw new NotImplementedException();
         }
 
-        public virtual bool UsePrimaryKeyPropertyForInsert()
-        {
-            return false;
-        }
-
         public virtual async Task InsertAsync(DbModel model, DbCommand cmd, bool insertPrimaryKeyColumn, DbModelSaveType saveType)
         {
             if (!insertPrimaryKeyColumn && saveType != DbModelSaveType.BulkInsertWithoutPrimaryKeyValueReturn)
             {
-                object? val = await cmd.ExecuteScalarAsync();
+                object? val = await cmd.ExecuteScalarAsync().ConfigureAwait(false);
 
                 if (val == null || val == DBNull.Value)
                     return;
@@ -315,7 +310,7 @@ namespace Zen.DbAccess.Standard.DatabaseSpeciffic
             }
             else
             {
-                await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
             }
         }
 
@@ -401,27 +396,18 @@ namespace Zen.DbAccess.Standard.DatabaseSpeciffic
             throw new NotImplementedException();
         }
 
-        public virtual Tuple<string, SqlParam[]> PrepareBulkInsertBatchWithSequence<T>(
-           List<T> list,
-           IZenDbConnection conn,
-           string table,
-           bool insertPrimaryKeyColumn,
-           string sequence2UseForPrimaryKey) where T : DbModel
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Tuple<string, SqlParam[]> PrepareBulkInsertBatch<T>(
-            List<T> list,
-            IZenDbConnection conn,
-            string table) where T : DbModel
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetValueForPreparedParameter(DbModel dbModel, PropertyInfo propertyInfo)
         {
             return propertyInfo.GetValue(dbModel) ?? DBNull.Value;
+        }
+
+        public virtual async Task BulkInsertAsync<T>(
+            List<T> list,
+            IZenDbConnection conn,
+            string table,
+            bool insertPrimaryKeyColumn = false) where T : DbModel
+        {
+            throw new NotImplementedException();
         }
     }
 }
