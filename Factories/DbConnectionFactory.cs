@@ -134,12 +134,12 @@ public class DbConnectionFactory : IDbConnectionFactory
         set { _connStr = value; }
     }
 
-    public DbNamingConvention DbNamingConvention 
+    public DbNamingConvention DbNamingConvention
     {
         get => _dbNamingConvention;
         set => DbNamingConvention = value;
     }
-    
+
     public IDbSpeciffic DatabaseSpeciffic
     {
         get => _dbSpeciffic!;
@@ -170,7 +170,7 @@ public class DbConnectionFactory : IDbConnectionFactory
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns>A database connection object. The database connection is opened.</returns>
     /// <exception cref="NotImplementedException"></exception>
@@ -233,7 +233,17 @@ public class DbConnectionFactory : IDbConnectionFactory
         {
             await conn.OpenAsync().ConfigureAwait(false);
 
-            string sql = "PRAGMA journal_mode=WAL; PRAGMA busy_timeout = 5000; PRAGMA foreign_keys = ON; PRAGMA synchronous = NORMAL; ";
+            string sql = """
+                PRAGMA journal_mode=WAL;
+                PRAGMA busy_timeout = 10000;
+                PRAGMA foreign_keys = ON;
+                PRAGMA synchronous = NORMAL;
+                PRAGMA page_size = 4096;
+                PRAGMA cache_size = -2000;
+                PRAGMA temp_store = MEMORY;
+                PRAGMA mmap_size = 268435456;
+            """;
+
             await sql.ExecuteNonQueryAsync(connection).ConfigureAwait(false);
         }
 
