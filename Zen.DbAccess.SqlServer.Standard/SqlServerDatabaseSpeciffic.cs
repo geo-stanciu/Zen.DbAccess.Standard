@@ -87,11 +87,11 @@ public class SqlServerDatabaseSpeciffic : DbSpeciffic
         return (sql, Array.Empty<SqlParam>());
     }
 
-    public async Task BulkInsertAsync<T>(
+    public override async Task BulkInsertAsync<T>(
         List<T> list,
         IZenDbConnection conn,
         string table,
-        bool insertPrimaryKeyColumn = false) where T : DbModel
+        bool insertPrimaryKeyColumn = false)
     {
         T? firstModel = list.FirstOrDefault();
 

@@ -180,11 +180,11 @@ public class PostgresqlDatabaseSpeciffic : DbSpeciffic
         return (sql, new[] { p_serial_table, p_serial_id });
     }
 
-    public async Task BulkInsertAsync<T>(
+    public override async Task BulkInsertAsync<T>(
         List<T> list,
         IZenDbConnection conn,
         string table,
-        bool insertPrimaryKeyColumn = false) where T : DbModel
+        bool insertPrimaryKeyColumn = false)
     {
         T? firstModel = list.FirstOrDefault();
 

@@ -389,8 +389,8 @@ public class OracleDatabaseSpeciffic : DbSpeciffic
             if (insertPrimaryKeyColumn)
             {
                 var propName = firstModel.GetMappedProperty(prm.ParameterName.Substring(2));
-                var dbCol = !string.IsNullOrEmpty(propName) ? firstModel.GetMappedProperty(propName) : null;
-                var isPartOfThePrimaryKey = !string.IsNullOrEmpty(dbCol) ? firstModel.IsPartOfThePrimaryKey(dbCol) : false;
+                var dbCol = !string.IsNullOrEmpty(propName) ? firstModel.GetMappedProperty(propName!) : null;
+                var isPartOfThePrimaryKey = !string.IsNullOrEmpty(dbCol) ? firstModel.IsPartOfThePrimaryKey(dbCol!) : false;
 
                 if (isPartOfThePrimaryKey)
                 {
