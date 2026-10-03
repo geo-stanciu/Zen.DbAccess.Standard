@@ -330,30 +330,31 @@ public class PostgresqlDatabaseSpeciffic : DbSpeciffic
 
         string sql = sbSql.ToString();
 
-        await using var cmd = new NpgsqlCommand(sql, (NpgsqlConnection)conn.Connection);
-
-        cmd.Parameters.AddRange(sqlParams);
-
-        _ = await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
-
-        for (k = 0; k < cmd.Parameters.Count; k++)
+        using (var cmd = new NpgsqlCommand(sql, (NpgsqlConnection)conn.Connection))
         {
-            var prm = cmd.Parameters[k];
+            cmd.Parameters.AddRange(sqlParams);
 
-            if (insertPrimaryKeyColumn)
+            _ = await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+            for (k = 0; k < cmd.Parameters.Count; k++)
             {
-                var propName = firstModel.GetMappedProperty(prm.ParameterName.Substring(2));
-                var dbCol = !string.IsNullOrEmpty(propName) ? firstModel.GetMappedProperty(propName) : null;
-                var isPartOfThePrimaryKey = !string.IsNullOrEmpty(dbCol) ? firstModel.IsPartOfThePrimaryKey(dbCol) : false;
+                var prm = cmd.Parameters[k];
 
-                if (isPartOfThePrimaryKey)
+                if (insertPrimaryKeyColumn)
                 {
-                    var prop = propertiesToInsert.FirstOrDefault(x => x.Name == propName)
-                        ?? throw new Exception($"Property {propName} not found in the properties to insert list for {table}");
+                    var propName = firstModel.GetMappedProperty(prm.ParameterName.Substring(2));
+                    var dbCol = !string.IsNullOrEmpty(propName) ? firstModel.GetMappedProperty(propName!) : null;
+                    var isPartOfThePrimaryKey = !string.IsNullOrEmpty(dbCol) ? firstModel.IsPartOfThePrimaryKey(dbCol!) : false;
 
-                    for (int i = 0; i < list.Count; i++)
+                    if (isPartOfThePrimaryKey)
                     {
-                        PropertyMapHelper.SetPropertyValue(list[i], prop, paramsArrays[k][i]);
+                        var prop = propertiesToInsert.FirstOrDefault(x => x.Name == propName)
+                            ?? throw new Exception($"Property {propName} not found in the properties to insert list for {table}");
+
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            PropertyMapHelper.SetPropertyValue(list[i], prop, paramsArrays[k][i]);
+                        }
                     }
                 }
             }
@@ -458,8 +459,6 @@ public class PostgresqlDatabaseSpeciffic : DbSpeciffic
             Type t when t == typeof(float) => NpgsqlTypes.NpgsqlDbType.Real,
             Type t when t == typeof(double) => NpgsqlTypes.NpgsqlDbType.Double,
             Type t when t == typeof(decimal) => NpgsqlTypes.NpgsqlDbType.Numeric,
-            Type t when t == typeof(DateOnly) => NpgsqlTypes.NpgsqlDbType.Date,
-            Type t when t == typeof(TimeOnly) => NpgsqlTypes.NpgsqlDbType.Time,
             Type t when t == typeof(DateTime) => NpgsqlTypes.NpgsqlDbType.Timestamp,
             Type t when t == typeof(DateTimeOffset) => NpgsqlTypes.NpgsqlDbType.TimestampTz,
             Type t when t == typeof(byte[]) => NpgsqlTypes.NpgsqlDbType.Bytea,
