@@ -96,7 +96,7 @@ public class SqlServerDatabaseSpeciffic : DbSpeciffic
         T? firstModel = list.FirstOrDefault();
 
         if (firstModel == null)
-            throw new NullReferenceException(nameof(firstModel));
+            return;
 
         firstModel.RefreshDbColumnsAndModelProperties(conn, table);
 
