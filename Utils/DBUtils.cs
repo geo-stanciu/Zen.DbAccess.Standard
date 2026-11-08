@@ -19,7 +19,7 @@ public static class DBUtils
 {
     public static async Task<DateTime> GetServerDateTime(IDbConnectionFactory dbConnectionFactory)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return GetServerDateTime(conn);
     }
 
@@ -38,7 +38,7 @@ public static class DBUtils
 
     public static async Task<List<SqlParam>> ExecuteProcedureAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await ExecuteProcedureAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -108,7 +108,7 @@ public static class DBUtils
 
     public static async Task<DataSet?> ExecuteProcedure2DataSetAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         var result = await ExecuteProcedure2DataSetAsync(conn, sql, parameters).ConfigureAwait(false);
 
         return result;
@@ -196,7 +196,7 @@ public static class DBUtils
 
     public static async Task<object?> ExecuteScalarAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await ExecuteScalarAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -227,7 +227,7 @@ public static class DBUtils
 
     public static async Task<List<SqlParam>> ExecuteNonQueryAsync(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await ExecuteNonQueryAsync(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -270,7 +270,7 @@ public static class DBUtils
 
     public static async Task<T?> QueryRowAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryRowAsync<T>(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -326,19 +326,19 @@ public static class DBUtils
 
     public static async Task<(List<T>, List<T2>, List<T3>, List<T4>, List<T5>)> QueryProcedureAsync<T, T2, T3, T4, T5>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T, T2, T3, T4, T5>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>, List<T3>, List<T4>)> QueryProcedureAsync<T, T2, T3, T4>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T, T2, T3, T4>(conn, sql, parameters).ConfigureAwait(false);
     }
 
     public static async Task<(List<T>, List<T2>, List<T3>)> QueryProcedureAsync<T, T2, T3>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T, T2, T3>(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -489,7 +489,7 @@ public static class DBUtils
 
     public static async Task<(List<T>, List<T2>)> QueryProcedureAsync<T, T2>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T, T2>(conn, sql, parameters).ConfigureAwait(false);
     }
 
@@ -534,7 +534,7 @@ public static class DBUtils
 
     public static async Task<List<T>> QueryTableProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
 
         bool dbHasCursorFetch = conn.DatabaseSpeciffic.ShouldFetchProcedureAsCursorsAsync();
 
@@ -556,13 +556,13 @@ public static class DBUtils
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T>(conn, sql, isTableProcedure: false, parameters).ConfigureAwait(false);
     }
 
     public static async Task<List<T>> QueryProcedureAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, bool isTableProcedure, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryProcedureAsync<T>(conn, sql, isTableProcedure, parameters).ConfigureAwait(false);
     }
 
@@ -607,7 +607,7 @@ public static class DBUtils
 
     public static async Task<List<T>> QueryAsync<T>(IDbConnectionFactory dbConnectionFactory, string sql, params SqlParam[] parameters)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         return await QueryAsync<T>(conn, sql, queryCacheName: null, parameters).ConfigureAwait(false);
     }
 
@@ -690,7 +690,7 @@ public static class DBUtils
 
     public static async Task UpdateTableAsync<T>(IDbConnectionFactory dbConnectionFactory, string table, T model)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         UpdateTable(conn, table, model);
     }
 
@@ -803,7 +803,7 @@ public static class DBUtils
 
     public static async Task UpdateTableAsync<T>(IDbConnectionFactory dbConnectionFactory, string table, List<T> models)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         UpdateTable(conn, table, models);
     }
 

@@ -520,13 +520,13 @@ public static class DbModelExtensions
 
     public static async Task SaveAsync(this DbModel dbModel, IDbConnectionFactory dbConnectionFactory, string table, bool insertPrimaryKeyColumn = false)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await SaveAsync(dbModel, DbModelSaveType.InsertUpdate, conn, table, insertPrimaryKeyColumn).ConfigureAwait(false);
     }
 
     public static async Task SaveAsync(this DbModel dbModel, DbModelSaveType saveType, IDbConnectionFactory dbConnectionFactory, string table, bool insertPrimaryKeyColumn = false)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await SaveAsync(dbModel, saveType, conn, table, insertPrimaryKeyColumn).ConfigureAwait(false);
     }
 
@@ -602,7 +602,7 @@ public static class DbModelExtensions
 
     public static async Task DeleteAsync(this DbModel dbModel, IDbConnectionFactory dbConnectionFactory, string table)
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await DeleteAsync(dbModel, conn, table).ConfigureAwait(false);
     }
 

@@ -539,7 +539,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
@@ -605,7 +605,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
@@ -667,7 +667,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
@@ -729,7 +729,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
@@ -792,7 +792,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try
@@ -854,7 +854,7 @@ public abstract class BaseRepository
         if (_dbConnectionFactory == null)
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
-        await using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await conn.BeginTransactionAsync().ConfigureAwait(false);
 
         try

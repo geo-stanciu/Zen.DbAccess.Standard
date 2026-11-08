@@ -23,7 +23,7 @@ public static class ListExtensions
         bool runAllInTheSameTransaction = true,
         bool insertPrimaryKeyColumn = false) where T : DbModel
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await list.SaveAllAsync(DbModelSaveType.InsertUpdate, conn, table, runAllInTheSameTransaction, insertPrimaryKeyColumn).ConfigureAwait(false);
     }
 
@@ -35,7 +35,7 @@ public static class ListExtensions
         bool runAllInTheSameTransaction = true,
         bool insertPrimaryKeyColumn = false) where T : DbModel
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await list.SaveAllAsync(dbModelSaveType, conn, table, runAllInTheSameTransaction, insertPrimaryKeyColumn).ConfigureAwait(false);
     }
 
@@ -153,7 +153,7 @@ public static class ListExtensions
         string table,
         bool runAllInTheSameTransaction = true) where T : DbModel
     {
-        await using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
+        using IZenDbConnection conn = await dbConnectionFactory.BuildAsync().ConfigureAwait(false);
         await DeleteAllAsync<T>(list, conn, table, runAllInTheSameTransaction).ConfigureAwait(false);
     }
 

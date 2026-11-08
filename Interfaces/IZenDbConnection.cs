@@ -8,7 +8,7 @@ using Zen.DbAccess.Standard.Enums;
 
 namespace Zen.DbAccess.Standard.Interfaces;
 
-public interface IZenDbConnection : IAsyncDisposable
+public interface IZenDbConnection : IDisposable
 {
     DbConnection Connection { get; }
     DbTransaction? Transaction { get; }
