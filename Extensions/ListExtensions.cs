@@ -59,7 +59,7 @@ public static class ListExtensions
         bool isInTransaction = conn.Transaction != null;
 
         if (runAllInTheSameTransaction && conn.Transaction == null)
-            await conn.BeginTransactionAsync().ConfigureAwait(false);
+            conn.BeginTransaction();
 
         try
         {
@@ -71,7 +71,7 @@ public static class ListExtensions
             {
                 try
                 {
-                    await conn.RollbackAsync().ConfigureAwait(false);
+                    conn.Rollback();
                 }
                 catch { }
             }
@@ -80,7 +80,7 @@ public static class ListExtensions
         }
 
         if (!isInTransaction && conn.Transaction != null)
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
     }
 
     public static async Task SaveAllAsync<T>(
@@ -103,7 +103,7 @@ public static class ListExtensions
         }
 
         if (runAllInTheSameTransaction && conn.Transaction == null)
-            await conn.BeginTransactionAsync().ConfigureAwait(false);
+            conn.BeginTransaction();
 
         try
         {
@@ -133,7 +133,7 @@ public static class ListExtensions
             {
                 try
                 {
-                    await conn.RollbackAsync().ConfigureAwait(false);
+                    conn.Rollback();
                 }
                 catch { }
             }
@@ -143,7 +143,7 @@ public static class ListExtensions
         finally
         {
             if (!isInTransaction && conn.Transaction != null)
-                await conn.CommitAsync().ConfigureAwait(false);
+                conn.Commit();
         }
     }
 
@@ -166,7 +166,7 @@ public static class ListExtensions
         bool isInTransaction = conn.Transaction != null;
 
         if (runAllInTheSameTransaction && conn.Transaction == null)
-            await conn.BeginTransactionAsync().ConfigureAwait(false);
+            conn.BeginTransaction();
 
         try
         {
@@ -205,7 +205,7 @@ public static class ListExtensions
             {
                 try
                 {
-                    await conn.RollbackAsync().ConfigureAwait(false);
+                    conn.Rollback();
                 }
                 catch { }
             }
@@ -215,7 +215,7 @@ public static class ListExtensions
         finally
         {
             if (!isInTransaction && conn.Transaction != null)
-                await conn.CommitAsync().ConfigureAwait(false);
+                conn.Commit();
         }
     }
 

@@ -79,7 +79,7 @@ public class ZenDbConnection : IZenDbConnection
     }
 
 
-    public async Task BeginTransactionAsync()
+    public void BeginTransaction()
     {
         if (_conn == null)
             throw new NullReferenceException(nameof(Connection));
@@ -87,7 +87,7 @@ public class ZenDbConnection : IZenDbConnection
         _tx = _conn.BeginTransaction();
     }
 
-    public async Task CommitAsync()
+    public void Commit()
     {
         if (_tx == null)
             throw new NullReferenceException(nameof(Transaction));
@@ -97,7 +97,7 @@ public class ZenDbConnection : IZenDbConnection
         _tx = null;
     }
 
-    public async Task RollbackAsync()
+    public void Rollback()
     {
         if (_tx == null)
             throw new NullReferenceException(nameof(Transaction));
@@ -110,23 +110,23 @@ public class ZenDbConnection : IZenDbConnection
     public void Dispose()
     {
         if (_tx != null)
-            RollbackAsync().Wait();
+            Rollback();
 
-        CloseAsync().Wait();
+        Close();
     }
 
     void IDisposable.Dispose()
     {
         if (_tx != null)
-            RollbackAsync().Wait();
+            Rollback();
 
-        CloseAsync().Wait();
+        Close();
     }
 
-    public async Task CloseAsync()
+    public void Close()
     {
         if (_tx != null)
-            await RollbackAsync().ConfigureAwait(false);
+            Rollback();
 
         if (_conn != null && _conn.State != ConnectionState.Closed)
             _conn.Close();

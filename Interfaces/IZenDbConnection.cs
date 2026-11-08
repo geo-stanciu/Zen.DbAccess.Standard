@@ -17,8 +17,8 @@ public interface IZenDbConnection : IDisposable
     DbNamingConvention NamingConvention { get; }
 
 
-    Task BeginTransactionAsync();
-    Task CommitAsync();
-    Task RollbackAsync();
-    Task CloseAsync();
+    void BeginTransaction();
+    void Commit();
+    void Rollback();
+    void Close();
 }

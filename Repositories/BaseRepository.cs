@@ -540,7 +540,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -578,13 +578,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T, T2, T3, T4, T5>(conn, procedure2Execute, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
@@ -606,7 +606,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -644,13 +644,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T, T2, T3, T4>(conn, procedure2Execute, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
@@ -668,7 +668,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -706,13 +706,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T, T2, T3>(conn, procedure2Execute, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
@@ -730,7 +730,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -768,13 +768,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T, T2>(conn, procedure2Execute, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
@@ -793,7 +793,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -831,13 +831,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
@@ -855,7 +855,7 @@ public abstract class BaseRepository
             throw new NullReferenceException(nameof(_dbConnectionFactory));
 
         using IZenDbConnection conn = await _dbConnectionFactory.BuildAsync().ConfigureAwait(false);
-        await conn.BeginTransactionAsync().ConfigureAwait(false);
+        conn.BeginTransaction();
 
         try
         {
@@ -893,13 +893,13 @@ public abstract class BaseRepository
             }
 
             var rez = await RunProcedureAsync<T>(conn, procedure2Execute, isTableProcedure: false, parameters).ConfigureAwait(false);
-            await conn.CommitAsync().ConfigureAwait(false);
+            conn.Commit();
 
             return rez;
         }
         catch
         {
-            await conn.RollbackAsync().ConfigureAwait(false);
+            conn.Rollback();
             throw;
         }
     }
